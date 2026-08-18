@@ -5,8 +5,7 @@ import {
   Smartphone,
   ShieldCheck,
   CheckCircle2,
-  ExternalLink,
-  QrCode
+  ExternalLink
 } from 'lucide-react';
 import { RMYC_MOBILE_RELEASE } from '../../data/rmycMobileData';
 
