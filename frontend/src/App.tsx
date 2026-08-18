@@ -53,7 +53,6 @@ export function App() {
       <Navigation
         onOpenLogin={handleOpenLogin}
         onOpenMembership={handleOpenMembership}
-        onOpenMobileApp={handleOpenMobileApp}
       />
 
       {/* Main Content Layout */}

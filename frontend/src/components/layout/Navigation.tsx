@@ -4,13 +4,11 @@ import { Anchor, Menu, X, Compass, UserCheck, Shield } from 'lucide-react';
 interface NavigationProps {
   onOpenLogin: () => void;
   onOpenMembership: () => void;
-  onOpenMobileApp: () => void;
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
   onOpenLogin,
   onOpenMembership,
-  onOpenMobileApp,
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -78,12 +76,6 @@ export const Navigation: React.FC<NavigationProps> = ({
 
         {/* Desktop Action Buttons */}
         <div className="hidden sm:flex items-center gap-3">
-          <button
-            onClick={onOpenMobileApp}
-            className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 rounded-full transition-all duration-300 shadow-sm animate-pulse hover:animate-none"
-          >
-            <span>📱 Test Mobile App</span>
-          </button>
           <button
             onClick={onOpenLogin}
             className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider text-rmyc-navy hover:text-rmyc-gold-dark border border-slate-300 hover:border-rmyc-gold rounded-full transition-all duration-300 bg-slate-100 hover:bg-white shadow-sm"
