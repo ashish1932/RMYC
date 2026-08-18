@@ -18,16 +18,21 @@ import { ContactSection } from './components/contact/ContactSection';
 import { Footer } from './components/layout/Footer';
 import { MemberPortalModal } from './components/portal/MemberPortalModal';
 import { MembershipFormModal } from './components/membership/MembershipFormModal';
+import { MobileSimulatorModal } from './components/mobile/MobileSimulatorModal';
 
 export function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isMembershipOpen, setIsMembershipOpen] = useState(false);
+  const [isMobileAppOpen, setIsMobileAppOpen] = useState(false);
 
   const handleOpenLogin = () => setIsLoginOpen(true);
   const handleCloseLogin = () => setIsLoginOpen(false);
 
   const handleOpenMembership = () => setIsMembershipOpen(true);
   const handleCloseMembership = () => setIsMembershipOpen(false);
+
+  const handleOpenMobileApp = () => setIsMobileAppOpen(true);
+  const handleCloseMobileApp = () => setIsMobileAppOpen(false);
 
   const handleOpenCorporate = () => {
     const el = document.getElementById('corporate');
@@ -48,6 +53,7 @@ export function App() {
       <Navigation
         onOpenLogin={handleOpenLogin}
         onOpenMembership={handleOpenMembership}
+        onOpenMobileApp={handleOpenMobileApp}
       />
 
       {/* Main Content Layout */}
@@ -116,6 +122,22 @@ export function App() {
         isOpen={isMembershipOpen}
         onClose={handleCloseMembership}
       />
+
+      {/* Mobile App Live Simulator Modal */}
+      <MobileSimulatorModal
+        isOpen={isMobileAppOpen}
+        onClose={handleCloseMobileApp}
+      />
+
+      {/* Fixed Floating Mobile App Test Trigger */}
+      <button
+        onClick={handleOpenMobileApp}
+        className="fixed bottom-6 right-6 z-40 bg-gradient-to-r from-[#0F2342] to-[#0A192F] text-rmyc-gold hover:text-white border-2 border-rmyc-gold/80 hover:border-rmyc-gold px-4 py-3 rounded-full shadow-2xl flex items-center gap-2.5 transition-all duration-300 hover:scale-105 hover:shadow-rmyc-gold/20 font-bold text-xs uppercase tracking-wider group"
+      >
+        <span className="text-base group-hover:scale-110 transition-transform">📱</span>
+        <span>Test Mobile App</span>
+        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+      </button>
     </div>
   );
 }
