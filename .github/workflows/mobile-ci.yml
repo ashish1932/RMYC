@@ -18,7 +18,7 @@ jobs:
   # 1. Android APK & Bundle Build (Runs on Ubuntu)
   # -------------------------------------------------------------
   android-build:
-    name: Build Android App (APK)
+    name: Build Standalone Offline Android APK
     runs-on: ubuntu-latest
 
     steps:
@@ -41,20 +41,26 @@ jobs:
           cd mobile
           npm install --legacy-peer-deps
 
+      - name: Bundle Offline JavaScript & Assets
+        run: |
+          cd mobile
+          mkdir -p android/app/src/main/assets
+          NODE_OPTIONS="-r ./scripts/polyfill.js" npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+
       - name: Make Gradlew Executable
         run: |
           cd mobile/android
           chmod +x gradlew
 
-      - name: Build Android Debug APK
+      - name: Build Standalone Android Debug APK
         run: |
           cd mobile/android
           ./gradlew assembleDebug --no-daemon
 
-      - name: Upload Android Debug APK Artifact
+      - name: Upload Standalone Android APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: RMYC-Android-Release-Build
+          name: RMYC-Standalone-Android-APK
           path: mobile/android/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 14
 
