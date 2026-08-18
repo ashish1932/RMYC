@@ -14,7 +14,7 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="dark-content" />
 
       {/* Header */}
       <View style={styles.header}>
@@ -141,7 +141,7 @@ function App(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#070F1E',
+    backgroundColor: '#F8FAFC',
   },
   header: {
     paddingHorizontal: 20,
@@ -150,22 +150,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderBottomWidth: 1,
-    borderBottomColor: '#1E293B',
-    backgroundColor: '#0A192F',
+    borderBottomColor: '#E2E8F0',
+    backgroundColor: '#FFFFFF',
   },
   headerTitle: {
-    color: '#D4AF37',
+    color: '#0A192F',
     fontSize: 14,
     fontWeight: 'bold',
     letterSpacing: 1.5,
   },
   headerSubtitle: {
-    color: '#94A3B8',
+    color: '#64748B',
     fontSize: 11,
     marginTop: 2,
   },
   badge: {
-    backgroundColor: 'rgba(212, 175, 55, 0.15)',
+    backgroundColor: '#FEF3C7',
     borderColor: '#D4AF37',
     borderWidth: 1,
     paddingHorizontal: 10,
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   badgeText: {
-    color: '#D4AF37',
+    color: '#92400E',
     fontSize: 9,
     fontWeight: 'bold',
     letterSpacing: 1,
@@ -190,10 +190,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 20,
     marginBottom: 20,
-    shadowColor: '#000',
-    shadowOpacity: 0.3,
+    shadowColor: '#0A192F',
+    shadowOpacity: 0.15,
     shadowRadius: 10,
-    elevation: 5,
+    elevation: 4,
   },
   cardLabel: {
     color: '#D4AF37',
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   memberId: {
-    color: '#94A3B8',
+    color: '#CBD5E1',
     fontSize: 12,
     marginTop: 2,
   },
@@ -222,13 +222,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   metaLabel: {
-    color: '#64748B',
+    color: '#94A3B8',
     fontSize: 9,
     fontWeight: 'bold',
     letterSpacing: 1,
   },
   metaValue: {
-    color: '#E2E8F0',
+    color: '#F8FAFC',
     fontSize: 13,
     fontWeight: '600',
     marginTop: 2,
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   sectionTitle: {
-    color: '#F8FAFC',
+    color: '#0F172A',
     fontSize: 15,
     fontWeight: 'bold',
   },
@@ -249,48 +249,56 @@ const styles = StyleSheet.create({
   },
   gridCard: {
     flex: 1,
-    backgroundColor: '#0F172A',
-    borderColor: '#1E293B',
+    backgroundColor: '#FFFFFF',
+    borderColor: '#E2E8F0',
     borderWidth: 1,
     borderRadius: 16,
     padding: 14,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.03,
+    shadowRadius: 6,
+    elevation: 2,
   },
   gridIcon: {
     fontSize: 22,
     marginBottom: 6,
   },
   gridValue: {
-    color: '#FFFFFF',
+    color: '#0F172A',
     fontSize: 15,
     fontWeight: 'bold',
   },
   gridLabel: {
-    color: '#94A3B8',
+    color: '#64748B',
     fontSize: 11,
     marginTop: 2,
   },
   actionButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#0F172A',
-    borderColor: '#1E293B',
+    backgroundColor: '#FFFFFF',
+    borderColor: '#E2E8F0',
     borderWidth: 1,
     borderRadius: 16,
     padding: 14,
     marginBottom: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.03,
+    shadowRadius: 6,
+    elevation: 2,
   },
   actionIcon: {
     fontSize: 24,
     marginRight: 14,
   },
   actionTitle: {
-    color: '#FFFFFF',
+    color: '#0F172A',
     fontSize: 14,
     fontWeight: 'bold',
   },
   actionSub: {
-    color: '#94A3B8',
+    color: '#64748B',
     fontSize: 11,
     marginTop: 2,
   },
@@ -302,9 +310,9 @@ const styles = StyleSheet.create({
   },
   navBar: {
     flexDirection: 'row',
-    backgroundColor: '#0A192F',
+    backgroundColor: '#FFFFFF',
     borderTopWidth: 1,
-    borderTopColor: '#1E293B',
+    borderTopColor: '#E2E8F0',
     paddingVertical: 10,
     paddingHorizontal: 12,
   },
@@ -314,7 +322,7 @@ const styles = StyleSheet.create({
   },
   navIcon: {
     fontSize: 18,
-    opacity: 0.5,
+    opacity: 0.4,
   },
   navIconActive: {
     opacity: 1,
@@ -326,7 +334,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   navTextActive: {
-    color: '#D4AF37',
+    color: '#0F2342',
     fontWeight: 'bold',
   },
 });
