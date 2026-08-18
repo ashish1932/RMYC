@@ -9,8 +9,32 @@ import {
   ScrollView,
 } from 'react-native';
 
+// Dynamic Data Bindings
+const MEMBER_DATA = {
+  name: 'Captain Ashish Kumar',
+  id: 'RMYC-1911-0842',
+  tier: 'Life Member',
+  skipperRating: 'J80 Keelboat Master',
+};
+
+const WEATHER_DATA = {
+  windSpeed: '14 Knots',
+  windDir: 'Wind (ENE)',
+  swell: '1.2 m',
+  tideTime: '14:30 IST',
+  seaTemp: '31°C',
+};
+
+const VESSEL_OPTIONS = [
+  { id: '1', title: 'J80 Class Keelboat', sub: 'Racing Keelboat · Capacity 5 Crew', price: 'Included with Life Membership' },
+  { id: '2', title: 'Seabird Class Dinghy', sub: 'Classic Vintage Sailboat · Capacity 3', price: 'Free Slot Reservation' },
+  { id: '3', title: 'Enterprise Class', sub: 'Tactical Racing Dinghy · Capacity 2', price: 'Available Today' },
+];
+
 function App(): React.JSX.Element {
   const [activeTab, setActiveTab] = useState<'home' | 'pass' | 'sails' | 'weather'>('home');
+  const [selectedVessel, setSelectedVessel] = useState(VESSEL_OPTIONS[0].title);
+  const [bookingSuccess, setBookingSuccess] = useState(false);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -31,19 +55,19 @@ function App(): React.JSX.Element {
         {/* Member Card Component */}
         <View style={styles.card}>
           <Text style={styles.cardLabel}>OFFICIAL DIGITAL PASS</Text>
-          <Text style={styles.memberName}>Captain Ashish Kumar</Text>
-          <Text style={styles.memberId}>ID: RMYC-1911-0842</Text>
+          <Text style={styles.memberName}>{MEMBER_DATA.name}</Text>
+          <Text style={styles.memberId}>ID: {MEMBER_DATA.id}</Text>
 
           <View style={styles.cardDivider} />
 
           <View style={styles.cardRow}>
             <View>
               <Text style={styles.metaLabel}>MEMBERSHIP TIER</Text>
-              <Text style={styles.metaValue}>Life Member</Text>
+              <Text style={styles.metaValue}>{MEMBER_DATA.tier}</Text>
             </View>
             <View>
               <Text style={styles.metaLabel}>FLEET RATING</Text>
-              <Text style={styles.metaValue}>Skipper (J80)</Text>
+              <Text style={styles.metaValue}>{MEMBER_DATA.skipperRating}</Text>
             </View>
           </View>
         </View>
@@ -56,12 +80,12 @@ function App(): React.JSX.Element {
         <View style={styles.gridRow}>
           <View style={styles.gridCard}>
             <Text style={styles.gridIcon}>💨</Text>
-            <Text style={styles.gridValue}>14 Knots</Text>
-            <Text style={styles.gridLabel}>Wind (ENE)</Text>
+            <Text style={styles.gridValue}>{WEATHER_DATA.windSpeed}</Text>
+            <Text style={styles.gridLabel}>{WEATHER_DATA.windDir}</Text>
           </View>
           <View style={styles.gridCard}>
             <Text style={styles.gridIcon}>🌊</Text>
-            <Text style={styles.gridValue}>1.2 m</Text>
+            <Text style={styles.gridValue}>{WEATHER_DATA.swell}</Text>
             <Text style={styles.gridLabel}>Swell Height</Text>
           </View>
         </View>
@@ -69,12 +93,12 @@ function App(): React.JSX.Element {
         <View style={styles.gridRow}>
           <View style={styles.gridCard}>
             <Text style={styles.gridIcon}>⚓</Text>
-            <Text style={styles.gridValue}>High Tide</Text>
-            <Text style={styles.gridLabel}>14:30 IST</Text>
+            <Text style={styles.gridValue}>{WEATHER_DATA.tideTime}</Text>
+            <Text style={styles.gridLabel}>High Tide</Text>
           </View>
           <View style={styles.gridCard}>
             <Text style={styles.gridIcon}>☀️</Text>
-            <Text style={styles.gridValue}>31°C</Text>
+            <Text style={styles.gridValue}>{WEATHER_DATA.seaTemp}</Text>
             <Text style={styles.gridLabel}>Sea Temp</Text>
           </View>
         </View>
@@ -84,32 +108,23 @@ function App(): React.JSX.Element {
           <Text style={styles.sectionTitle}>Club Quick Actions</Text>
         </View>
 
-        <TouchableOpacity style={styles.actionButton}>
-          <Text style={styles.actionIcon}>⛵</Text>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.actionTitle}>Book a Vessel Slot</Text>
-            <Text style={styles.actionSub}>Reserve J80, Seabird, or Enterprise boats</Text>
-          </View>
-          <Text style={styles.actionArrow}>›</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.actionButton}>
-          <Text style={styles.actionIcon}>🏆</Text>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.actionTitle}>Regattas & Events</Text>
-            <Text style={styles.actionSub}>View upcoming club races & RSVP</Text>
-          </View>
-          <Text style={styles.actionArrow}>›</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.actionButton}>
-          <Text style={styles.actionIcon}>🍽️</Text>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.actionTitle}>Harbour Lounge Dining</Text>
-            <Text style={styles.actionSub}>Reserve tables & order F&B ahead</Text>
-          </View>
-          <Text style={styles.actionArrow}>›</Text>
-        </TouchableOpacity>
+        {VESSEL_OPTIONS.map((item) => (
+          <TouchableOpacity
+            key={item.id}
+            onPress={() => setSelectedVessel(item.title)}
+            style={[
+              styles.actionButton,
+              selectedVessel === item.title && styles.actionButtonActive,
+            ]}
+          >
+            <Text style={styles.actionIcon}>⛵</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.actionTitle}>{item.title}</Text>
+              <Text style={styles.actionSub}>{item.sub}</Text>
+            </View>
+            <Text style={styles.actionArrow}>›</Text>
+          </TouchableOpacity>
+        ))}
       </ScrollView>
 
       {/* Bottom Navigation */}
@@ -287,6 +302,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.03,
     shadowRadius: 6,
     elevation: 2,
+  },
+  actionButtonActive: {
+    borderColor: '#D4AF37',
+    backgroundColor: '#FFFDF5',
   },
   actionIcon: {
     fontSize: 24,
