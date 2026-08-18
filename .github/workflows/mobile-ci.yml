@@ -1,4 +1,4 @@
-name: Mobile App CI/CD Pipeline
+name: Pure Native Mobile App CI/CD Pipeline
 
 on:
   push:
@@ -11,14 +11,14 @@ on:
     paths:
       - 'mobile/**'
       - '.github/workflows/mobile-ci.yml'
-  workflow_dispatch: # Allows manual trigger from GitHub UI
+  workflow_dispatch:
 
 jobs:
   # -------------------------------------------------------------
-  # 1. Android APK & Bundle Build (Runs on Ubuntu)
+  # 1. Pure Native Android Kotlin Build (Runs on Ubuntu)
   # -------------------------------------------------------------
-  android-build:
-    name: Build Standalone Offline Android APK
+  android-native-build:
+    name: Build Pure Native Android (Kotlin) APK
     runs-on: ubuntu-latest
 
     steps:
@@ -31,62 +31,19 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
-      - name: Setup Node.js Environment (Node 22)
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Install Mobile Dependencies
-        run: |
-          cd mobile
-          npm install --legacy-peer-deps
-
-      - name: Bundle Offline JavaScript & Assets
-        run: |
-          cd mobile
-          mkdir -p android/app/src/main/assets
-          NODE_OPTIONS="-r ./scripts/polyfill.js" npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
-
       - name: Make Gradlew Executable
         run: |
           cd mobile/android
           chmod +x gradlew
 
-      - name: Build Standalone Android Debug APK
+      - name: Build Pure Native Kotlin APK
         run: |
           cd mobile/android
           ./gradlew assembleDebug --no-daemon
 
-      - name: Upload Standalone Android APK Artifact
+      - name: Upload Pure Native Android APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: RMYC-Standalone-Android-APK
+          name: RMYC-Pure-Native-Android-APK
           path: mobile/android/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 14
-
-  # -------------------------------------------------------------
-  # 2. iOS Build Check (Runs on macOS)
-  # -------------------------------------------------------------
-  ios-build-check:
-    name: iOS App Validation
-    runs-on: macos-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js Environment (Node 22)
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
-      - name: Install Mobile Dependencies
-        run: |
-          cd mobile
-          npm install --legacy-peer-deps
-
-      - name: CocoaPods Install Check
-        run: |
-          cd mobile/ios
-          pod install
-          echo "iOS Native Dependencies (CocoaPods) Verified Successfully."
